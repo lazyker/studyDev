@@ -6,16 +6,16 @@
     <!-- 덧글 리스트 -->
     <select id="getCommentList" parameterType="hashmap" resultType="hashmap">
         SELECT
-            CMT_ID
-            ,CON_ID
-            ,FN_CONSULTENTNAME(CON_ID) AS CON_NM
-            ,REPLACE(CONTENTS, '\n',  <![CDATA['<br/>']]> ) AS CONTENTS
-            ,DATE_FORMAT(REG_DATE, "%Y-%m-%d") AS REG_DATE
+            A.CMT_ID
+            ,A.CON_ID
+            ,(SELECT CON_NM FROM I_CONSULTANT WHERE CON_ID = A.CON_ID) AS CON_NM
+            ,REPLACE(A.CONTENTS, '\n',  <![CDATA['<br/>']]> ) AS CONTENTS
+            ,DATE_FORMAT(A.REG_DATE, "%Y-%m-%d") AS REG_DATE
         FROM 
-            I_COMMENT
+            I_COMMENT A
         WHERE
             ITEM_ID = #{itemId, jdbcType=VARCHAR}
-            AND DEL_DATE IS NULL
+            AND A.DEL_DATE IS NULL
     </select>
 
     <!-- 덧글 등록 -->

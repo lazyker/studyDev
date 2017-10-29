@@ -44,10 +44,11 @@
                     <th class="re">성명</th>
                     <td>
 	                    <input id="usrNm" name="usrNm" type="text" class="in2" value="<c:out value="${getCandidate.USR_NM}" />" style="width:30%;" />
+	                    <input id="usrNmCheck" type="hidden">
 	                    <span class="t_search"><a href="#" id="candidateOverlapPop">중복검색</a></span>
-	                    <c:if test="${!empty getCandidate.USR_ID}">
-		                    <span class="t_search"><a href="#" id="smsPop">SMS</a></span>
-	                    </c:if>
+<%-- 	                    <c:if test="${!empty getCandidate.USR_ID}"> --%>
+<!-- 		                    <span class="t_search"><a href="#" id="smsPop">SMS</a></span> -->
+<%-- 	                    </c:if> --%>
 	                    <div style="margin-top: 4px;"><label for="usrNm" class="error"></label></div>
                     </td>
                     <th class="re">업종</th>
@@ -495,19 +496,20 @@
 		                    		<option value="K">보류</option>
 		                    		<option value="L">미검토</option>
 		                    		<option value="M">협상결렬</option>
-		                    		<option value="N">본인포기</option>
-		                    		<option value="O">입금</option>
-		                    		<option value="P">빌링취소</option>
-		                    		<option value="Q">리플접수</option>
-		                    		<option value="R">리플</option>
-		                    		<option value="S">정산</option>
-		                    		<option value="T">call</option>
-		                    		<option value="U">이메일</option>
-		                    		<option value="V">프리뷰</option>
-		                    		<option value="W">기타</option>
+		                    		<option value="N">면접포기</option>
+		                    		<option value="O">입사포기</option>
+		                    		<option value="P">입금</option>
+		                    		<option value="Q">빌링취소</option>
+		                    		<option value="R">리플접수</option>
+		                    		<option value="S">리플</option>
+		                    		<option value="T">정산</option>
+		                    		<option value="U">call</option>
+		                    		<option value="V">이메일</option>
+		                    		<option value="W">프리뷰</option>
+		                    		<option value="X">기타</option>
 		                    	</select>
 	                    		<input name="statusDate" type="text" class="in" style="width:70px;" />
-	                    		<a href="javascript:;" name="statusDateImg"><img src="/resources/images/b_cal.png" style="vertical-align: middle;"/></a>
+	                    		<a href="javascript:;" name="statusDateImg"><img src="${pageContext.request.contextPath}/resources/images/b_cal.png" style="vertical-align: middle;"/></a>
 	                    	</div>
 	                    	<c:forEach var="chlidstate" items="${item.posProStatusList}">
 		                    	<div class="divState">
@@ -607,7 +609,7 @@
 // 	            ,mobile : {required : '연락처를 입력하세요.', minlength: $.validator.format("전화번호는 최소 {0} 글자 이상 입력하세요.")}
 // 	            ,email : {required : '메일을 입력하세요.', email : '메일규칙에 어긋납니다.', minlength : '최소 {0}글자이상이어야 합니다.', remote : '중복된 E-mail 입니다.'}
 	            ,year : {minlength : '출생년도는 4자리 입니다.', digits : '숫자만 입력 가능합니다.'}
-	        },
+	        },	
 	        submitHandler : function(form) {
 	            callAjaxSubmit(form);
 	        }
@@ -622,6 +624,21 @@
 	    $('select[name="conId"]').attr('disabled', false);
         form.job1Nm.value = $.trim($('#job1 option:selected').text());
         form.job2Nm.value = $.trim($('#job2 option:selected').text());
+        
+        if ('${getCandidate.USR_ID}' == '' ) {
+            if ($('#usrNmCheck').val() == '') {
+                alert('후보자성명 중복검색을 반드시 해야 합니다.');
+                return false;
+            }     
+        } else {
+            //수정일 때
+             if ('${getCandidate.USR_NM}' != $('#usrNm').val()) {
+                 if ($('#usrNmCheck').val() == '') {
+                     alert('후보자성명이 변경될 경우 중복검색을 반드시 해야 합니다.');
+                     return false;    
+                 }
+             }
+        }
 
 		$(form).ajaxSubmit({
 		    url : url,
@@ -680,6 +697,7 @@
 	
 	/* 중복검색 팝업창 */
 	function candidateOverlapPop() {
+	    $('#usrNmCheck').val("true");
 	    var url = '<c:url value="./candidateOverlapPop" />';
 	    url += '?usrNm=' + $('#usrNm').val();
 	    
@@ -798,12 +816,12 @@
 	            str += '<option value="A">추천</option><option value="B">1차면접</option><option value="C">2차면접</option><option value="D">3차면접</option>' +
             			'<option value="E">실기</option><option value="F">인적성</option><option value="G">입사확정</option><option value="H">입사</option>' +
             			'<option value="I">빌링</option><option value="J">탈락</option><option value="K">보류</option><option value="L">미검토</option>' +
-            			'<option value="M">협상결렬</option><option value="N">본인포기</option><option value="O">입금</option><option value="P">빌링취소</option>' +
-            			'<option value="Q">리플접수</option><option value="R">리플</option><option value="S">정산</option><option value="T">call</option>' +
-            			'<option value="U">이메일</option><option value="V">프리뷰</option><option value="W">기타</option>';
+            			'<option value="M">협상결렬</option><option value="N">면접포기</option><option value="O">입사포기</option><option value="P">입금</option>' +
+            			'<option value="Q">빌링취소</option><option value="R">리플접수</option><option value="S">리플</option><option value="T">정산</option>' +
+            			'<option value="U">call</option><option value="V">이메일</option><option value="W">프리뷰</option><option value="X">기타</option>';
 	            str += '</select>';
 	            str += ' <input name="statusDate" type="text" class="in" style="width:70px;" /> ';
-	            str += '<a href="javascript:;" name="statusDateImg"><img src="/resources/images/b_cal.png" style=" vertical-align: middle;"/></a>';
+	            str += '<a href="javascript:;" name="statusDateImg"><img src="${pageContext.request.contextPath}/resources/images/b_cal.png" style=" vertical-align: middle;"/></a>';
 	            str +='</div>';
 	            str +='</td>';
 	            str += '<td>';

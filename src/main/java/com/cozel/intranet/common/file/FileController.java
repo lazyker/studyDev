@@ -46,11 +46,11 @@ System.out.println("env ::: " + env);
 System.out.println("filePath ::: " + filePath);
         		byte fileByte[] = new byte[1024*1024];
         		
-//        		if (StringUtils.equals(env, "development")) { //linux path
-//        			fileByte = FileUtils.readFileToByteArray(new File(filePath + "/"+ storedFileName));
-//        		} else {
-//        		}
-        		fileByte = FileUtils.readFileToByteArray(new File(filePath + "\\"+ storedFileName));        			
+        		if (StringUtils.equals(env, "local")) { //linux path
+        			fileByte = FileUtils.readFileToByteArray(new File(filePath + "\\"+ storedFileName));        			
+        		} else {
+        			fileByte = FileUtils.readFileToByteArray(new File(filePath + "/"+ storedFileName));	
+        		}
         		
         		response.setContentType("application/octet-stream");
         		response.setContentLength(fileByte.length);

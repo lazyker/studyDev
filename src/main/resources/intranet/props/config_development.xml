@@ -3,7 +3,7 @@
 <properties>
     <comment>development</comment>
     <entry key="env">development</entry>
-    <!-- development / production -->
+    <!-- development -->
 	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
     <entry key="jdbc.url">jdbc:mysql://61.97.131.25:3506/cozel?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=utf8</entry>
     <entry key="jdbc.user">root</entry>

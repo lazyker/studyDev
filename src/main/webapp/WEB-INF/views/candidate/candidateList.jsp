@@ -163,8 +163,9 @@
 	            <col width="14%" />
 	            <col width="14%" />
 	            <col width="*%" />
-	            <col width="22%" />
-	            <col width="7%" />
+	            <col width="19%" />
+	            <col width="5%" />
+	            <col width="5%" />
             </colgroup>
             <tbody>
                 <tr>
@@ -175,6 +176,7 @@
                     <th>경력회사</th>
                     <th>직무</th>
                     <th>등록자</th>
+                    <th>등록일</th>
                 </tr>
                 <c:choose>
                     <c:when test="${!empty candidateList}">
@@ -189,12 +191,13 @@
 			                    <td class="left"><c:out value="${item.C_NAME}" /></td>
 			                    <td class="left"><c:out value="${item.JOB1_NM}" /><c:if test="${!empty item.JOB2_NM }"> / <c:out value="${item.JOB2_NM }" /></c:if></td>
 			                    <td><c:out value="${item.CON_NM}" /></td>
+			                    <td><c:out value="${item.REG_DATE}" /></td>
 			                </tr>
 		                </c:forEach>
                     </c:when>
                     <c:otherwise>
                         <tr>
-                        	<td colspan="7">목록이 존재하지 않습니다.</td>
+                        	<td colspan="8">목록이 존재하지 않습니다.</td>
                         </tr>
                     </c:otherwise>
                 </c:choose>
@@ -275,7 +278,19 @@
        var url = '<c:url value="./candidateList" />';
        $('#searchType').val("detail");
        $('#searchText').val(""); //기본검색 초기화
-       $("#candidateForm").attr('href', url).submit();
+       
+       var startDateVal = $('input[name=startDate]').val();
+       var endDateVal = $('input[name=endDate]').val();
+       var startYearVal = $('#startYear').val();
+       var endYearVal = $('#endYear').val();
+       
+       if ((startDateVal != '' && endDateVal == '') || (endDateVal != '' && startDateVal == '') || (startDateVal > endDateVal)) {
+           toastr.warning('등록일 날짜 범위가 유효하지 않습니다.');
+       } else if ((startYearVal != '' && endYearVal == '') || (endYearVal != '' && startYearVal == '') || (startYearVal > endYearVal)) {
+           toastr.warning('출생연도 날짜 범위가 유효하지 않습니다.');
+       } else {
+	       $("#candidateForm").attr('href', url).submit();
+       }
    }
    
    function detailCandidate() {

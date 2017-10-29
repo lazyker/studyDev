@@ -84,7 +84,7 @@
 <!--         <trim prefix="WHERE" prefixOverrides="AND | OR" > -->
 		<if test='searchText != null and searchText != ""'>
 		    AND (COM_NM LIKE CONCAT('%', #{searchText, jdbcType=VARCHAR}, '%') 
-		    OR  CON_NM LIKE CONCAT('%', #{searchText, jdbcType=VARCHAR}, '%')) 
+		    OR  CON_NM LIKE CONCAT('%', #{searchText, jdbcType=VARCHAR}, '%'))
 		</if>
 		<if test='section != null and section != ""'>
 		    AND SECTION = #{section, jdbcType=CHAR}
@@ -96,10 +96,10 @@
 		    AND INDUSTRY2 = #{industry2, jdbcType=VARCHAR} 
 		</if>
 		<if test='comNm != null and comNm != ""'>
-		    AND COM_NM = #{comNm, jdbcType=VARCHAR}
+		    AND COM_NM LIKE CONCAT('%', #{comNm, jdbcType=VARCHAR}, '%')
 		</if>
 		<if test='conNm != null and conNm != ""'>
-		    AND CON_NM = #{conNm, jdbcType=VARCHAR}
+		    AND CON_NM LIKE CONCAT('%', #{conNm, jdbcType=VARCHAR}, '%')
 		</if>
 		<if test='comType != null and comType != ""'>
 		    AND COM_TYPE = #{comType, jdbcType=CHAR}
@@ -146,8 +146,8 @@
             ,PEOPLE
             ,INDUSTRY1
             ,INDUSTRY2
-            ,FN_CODE_NAME(INDUSTRY1) AS INDUSTRY1_NM
-            ,FN_CODE_NAME(INDUSTRY2) AS INDUSTRY2_NM
+            ,(SELECT CD_NM FROM I_JOB_CD WHERE CD_ID = INDUSTRY1) AS INDUSTRY1_NM
+            ,(SELECT CD_NM FROM I_JOB_CD WHERE CD_ID = INDUSTRY2) AS INDUSTRY2_NM
             ,PUBLIC_YN
             ,CASE WHEN PUBLIC_YN = 'Y' THEN '공개' WHEN PUBLIC_YN = 'N' THEN '비공개' END AS PUBLIC_YN_NM
             ,SUMMARY

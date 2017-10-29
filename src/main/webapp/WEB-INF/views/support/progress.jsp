@@ -66,16 +66,17 @@
                     		<option value="K" <c:if test="${search.state eq 'K'}">selected</c:if>>보류</option>
                     		<option value="L" <c:if test="${search.state eq 'L'}">selected</c:if>>미검토</option>
                     		<option value="M" <c:if test="${search.state eq 'M'}">selected</c:if>>협상결렬</option>
-                    		<option value="N" <c:if test="${search.state eq 'N'}">selected</c:if>>본인포기</option>
-                    		<option value="O" <c:if test="${search.state eq 'O'}">selected</c:if>>입금</option>
-                    		<option value="P" <c:if test="${search.state eq 'P'}">selected</c:if>>빌링취소</option>
-                    		<option value="Q" <c:if test="${search.state eq 'Q'}">selected</c:if>>리플접수</option>
-                    		<option value="R"<c:if test="${search.state eq 'R'}">selected</c:if>>리플</option>
-                    		<option value="S" <c:if test="${search.state eq 'S'}">selected</c:if>>정산</option>
-                    		<option value="T" <c:if test="${search.state eq 'T'}">selected</c:if>>call</option>
-                    		<option value="U" <c:if test="${search.state eq 'U'}">selected</c:if>>이메일</option>
-                    		<option value="V" <c:if test="${search.state eq 'V'}">selected</c:if>>프리뷰</option>
-                    		<option value="W" <c:if test="${search.state eq 'W'}">selected</c:if>>기타</option>
+                    		<option value="N" <c:if test="${search.state eq 'N'}">selected</c:if>>면접포기</option>
+                    		<option value="O" <c:if test="${search.state eq 'O'}">selected</c:if>>입사포기</option>
+                    		<option value="P" <c:if test="${search.state eq 'P'}">selected</c:if>>입금</option>
+                    		<option value="Q" <c:if test="${search.state eq 'Q'}">selected</c:if>>빌링취소</option>
+                    		<option value="R" <c:if test="${search.state eq 'R'}">selected</c:if>>리플접수</option>
+                    		<option value="S" <c:if test="${search.state eq 'S'}">selected</c:if>>리플</option>
+                    		<option value="T" <c:if test="${search.state eq 'T'}">selected</c:if>>정산</option>
+                    		<option value="U" <c:if test="${search.state eq 'U'}">selected</c:if>>call</option>
+                    		<option value="V" <c:if test="${search.state eq 'V'}">selected</c:if>>이메일</option>
+                    		<option value="W" <c:if test="${search.state eq 'W'}">selected</c:if>>프리뷰</option>
+                    		<option value="X" <c:if test="${search.state eq 'X'}">selected</c:if>>기타</option>
                     	</c:if>
 	                   </select>
 	                </li>
@@ -213,13 +214,25 @@
        var url = '<c:url value="./progress" />';
        $('#searchType').val("detail");
        $('#searchText').val(""); //기본검색 초기화
-       $("#frm").attr('href', url).submit();
+
+       var startDateVal = $('input[name=startDate]').val();
+       var endDateVal = $('input[name=endDate]').val();
+       var proStartDateVal = $('input[name=proStartDate]').val();
+       var proEndDateVal = $('input[name=proEndDate]').val();
+       
+       if ((proStartDateVal != '' && proEndDateVal == '') || (proEndDateVal != '' && proStartDateVal == '') || (proStartDateVal > proEndDateVal)) {
+           toastr.warning('등록일 날짜 범위가 유효하지 않습니다.');
+       } else if ((startDateVal != '' && endDateVal == '') || (endDateVal != '' && startDateVal == '') || (startDateVal > endDateVal)) {
+           toastr.warning('등록일 날짜 범위가 유효하지 않습니다.');
+       } else {
+           $("#frm").attr('href', url).submit();
+       }
    }
 
    /* 후보자 상세 */
    function detailCandidate() {
        var usrId = $(this).data('usrId');
-       var url = '<c:url value="/candidate/candidate" />' + '?usrId=' + usrId;	       
+       var url = '<c:url value="/candidate/candidateDetail" />' + '?usrId=' + usrId;	       
 	       
        document.location.href = url;
    }

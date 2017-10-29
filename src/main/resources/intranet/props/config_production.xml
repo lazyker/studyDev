@@ -3,17 +3,13 @@
 <properties>
     <comment>production</comment>
     <entry key="env">production</entry>
-    <!-- development / production -->
+    <!-- production -->
     <entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
-    <entry key="jdbc.url">jdbc:mysql://61.97.131.25:3506/cozel?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=utf8</entry>
-    <entry key="jdbc.user">root</entry>
-    <entry key="jdbc.pwd">wpsldpf2015</entry>
+	<entry key="jdbc.url">jdbc:mysql://localhost:3306/tonysearch2?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=utf8</entry>
+    <entry key="jdbc.user">tonysearch2</entry>
+    <entry key="jdbc.pwd">start0611!</entry>
     
-    <entry key="sms.jdbc.driver">com.microsoft.sqlserver.jdbc.SQLServerDriver</entry>
-    <entry key="sms.jdbc.url2">jdbc:sqlserver://110.4.78.164:1433;databaseName=ZNL_SM_DB</entry>
-    <entry key="sms.jdbc.user2">znl_sm_ok</entry>
-    <entry key="sms.jdbc.pwd2">oksm_+QR</entry>
-
     <!-- file -->
-    <entry key="file.upload.path">/home/cozelh/upload/</entry>
+    <entry key="file.upload.path">/home/hosting_users/tonysearch2/upload/</entry>
+    
 </properties>

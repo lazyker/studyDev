@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div id="Contents">
     <form id="frm" name="frm" method="post">
@@ -40,19 +41,21 @@
     <div class="swrap">
         <table class="board_list" id="kpiList" style="width:100%;">
             <colgroup>
+            <col width="6%" />
             <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
             </colgroup>
             <tbody>
                 <tr>
+                	<th>No</th>
                     <th>구분</th>
                     <th>추천</th>
                     <th>1차면접</th>
@@ -66,8 +69,14 @@
                 </tr>
                 <c:choose>
                     <c:when test="${!empty kpiList}">
-		                <c:forEach items="${kpiList}" var="item">
+		                <c:forEach items="${kpiList}" var="item" varStatus="status">
 			                <tr>
+			                	<td style="text-align: center">
+			                		<c:if test="${!status.last}">${status.count}</c:if>
+			                		<c:if test="${status.last}">
+			                			총인원 : ${fn:length(kpiList)-1}명
+			                		</c:if>
+			                	</td>
 			                    <td style="text-align: center"><c:out value="${item.CON_NM}" /></td>
 			                    <td style="text-align: center"> <c:out value="${item.STA_CNT_A}" /></td>
 			                    <td style="text-align: center"><c:out value="${item.STA_CNT_B}" /></td>

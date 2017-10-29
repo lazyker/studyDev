@@ -6,7 +6,7 @@
 	<artifactId>intranet</artifactId>
 	<name>intranet</name>
 	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>1.0.0</version>
 	
 	<properties>
 		<java-version>1.7</java-version>
@@ -193,8 +193,8 @@
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0</version>
-<!-- 			<scope>system</scope> -->
-<!-- 	        <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/sqljdbc4.jar</systemPath> -->
+			<scope>system</scope>
+	        <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/sqljdbc4-4.0.jar</systemPath>
 		</dependency>
 		
 		<dependency>
@@ -387,21 +387,58 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
+					<warName>intranet</warName>
 					<warsourcedirectory>src/main/webapp</warsourcedirectory>
 					<webxml>src/main/webapp/WEB-INF/web.xml</webxml>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<url>http://61.97.131.25:7070/manager/text</url>
-					<path>/cozel</path>
-					<username>cozelh</username>
-					<password>cozelh</password>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.tomcat.maven</groupId> -->
+<!-- 				<artifactId>tomcat7-maven-plugin</artifactId> -->
+<!-- 				<version>2.2</version> -->
+<!-- 				<configuration> -->
+<!-- 					<url>http://61.97.131.25:7070/manager/text</url> -->
+<!-- 					<path>/cozel</path> -->
+<!-- 					<username>cozelh</username> -->
+<!-- 					<password>cozelh</password> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
         </plugins>
+        
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+<!-- 				<includes> -->
+<!-- 					<include>props/config_${env}.xml</include> -->
+<!-- 				</includes> -->
+			</resource>
+		</resources>
     </build>
+    
+    <profiles>
+    	<profile>
+			<id>local</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+				<env>local</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+  		</profile>
+		<profile>
+			<id>development</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+				<env>development</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+				<env>production</env>
+			</properties>
+		</profile>
+    </profiles>
 </project>

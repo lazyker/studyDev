@@ -17,8 +17,8 @@
 					WHEN 'W' THEN '여'
 					ELSE ''
 				END, ')') AS USR_INFO
-			,FN_CONSULTENTNAME(P.CON_ID) AS CON_NM
-			,FN_CONSULTENTNAME(S.CON_ID) AS REC_NM
+			,(SELECT CON_NM FROM I_CONSULTANT WHERE CON_ID = P.CON_ID) AS CON_NM
+			,(SELECT CON_NM FROM I_CONSULTANT WHERE CON_ID = S.CON_ID) AS REC_NM
 			,S.STATE_NM
 			,DATE_FORMAT(R.REG_DATE, "%Y-%m-%d") AS REG_DATE
 			,DATE_FORMAT(S.STATE_DATE, "%Y-%m-%d") AS PROGRESS_DATE
@@ -62,7 +62,7 @@
 		    AND DATE_FORMAT(R.REG_DATE, "%Y-%m-%d") BETWEEN #{startDate} AND #{endDate}
 		</if>
 		<if test='(proStartDate != null  and proStartDate != "") and (proEndDate != null and proEndDate != "")'>
-		    AND DATE_FORMAT(S.REG_DATE, "%Y-%m-%d") BETWEEN #{proStartDate} AND #{proEndDate}
+		    AND DATE_FORMAT(S.STATE_DATE, "%Y-%m-%d") BETWEEN #{proStartDate} AND #{proEndDate}
 		</if>
 		ORDER BY ROWNUM DESC, P.REG_DATE DESC
         LIMIT #{startRowNum, javaType=INT}, 15
@@ -112,7 +112,7 @@
 		    AND DATE_FORMAT(R.REG_DATE, "%Y-%m-%d") BETWEEN #{startDate} AND #{endDate}
 		</if>
 		<if test='(proStartDate != null  and proStartDate != "") and (proEndDate != null and proEndDate != "")'>
-		    AND DATE_FORMAT(S.REG_DATE, "%Y-%m-%d") BETWEEN #{proStartDate} AND #{proEndDate}
+		    AND DATE_FORMAT(S.STATE_DATE, "%Y-%m-%d") BETWEEN #{proStartDate} AND #{proEndDate}
 		</if>
     </select>
     

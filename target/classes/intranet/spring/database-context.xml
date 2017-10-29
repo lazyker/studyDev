@@ -10,8 +10,8 @@
 
 <!--     <tx:annotation-driven/> -->
 
-<!-- 	<util:properties id="config" location="classpath:intranet/props/config_development.xml" /> -->
-	<util:properties id="config" location="classpath:intranet/props/config_#{systemEnvironment['COZEL_ENV']}.xml" />
+	<util:properties id="config" location="classpath:intranet/props/config_production.xml" />
+<!-- 	<util:properties id="config" location="classpath:intranet/props/config_#{systemEnvironment['COZEL_ENV']}.xml" /> -->
 
     <bean id="dataSourceSpied" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="#{config['jdbc.driver']}"/>

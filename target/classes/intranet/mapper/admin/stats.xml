@@ -7,7 +7,7 @@
     <select id="getLoginStatsList" parameterType="hashmap" resultType="hashmap">
         SELECT
         	@ROWNUM := @ROWNUM + 1 AS ROWNUM
-			,FN_CONSULTENTNAME(CON_ID) CON_NM
+        	,(SELECT CON_NM FROM I_CONSULTANT WHERE CON_ID = A.CON_ID) AS CON_NM
 			,CON_ID
 			,IP
 			,REG_DATE

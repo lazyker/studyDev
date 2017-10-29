@@ -11,6 +11,7 @@
             ,RANK
             ,CON_ORDER
             ,REPLACE(FIELD, '\r\n', <![CDATA['<br/>']]>) AS FIELD
+            ,H_PUBLIC_YN
             ,PHONE
             ,MOBILE
             ,REPLACE(EDU, '\r\n', <![CDATA['<br/>']]>) AS EDU
@@ -34,6 +35,7 @@
             ,RANK
             ,CON_ORDER
             ,FIELD
+            ,H_PUBLIC_YN
             ,PHONE
             ,MOBILE
             ,EMAIL
@@ -67,6 +69,7 @@
             ,RANK
             ,CON_ORDER
             ,FIELD
+            ,H_PUBLIC_YN
             ,PHONE
             ,MOBILE
             ,EMAIL
@@ -87,6 +90,7 @@
             ,#{rank, jdbcType=VARCHAR}
             ,#{conOrder, jdbcType=NUMERIC }
             ,#{field, jdbcType=VARCHAR}
+            ,#{hPublicYn, jdbcType=CHAR}
             ,#{phone, jdbcType=VARCHAR}
             ,#{mobile, jdbcType=VARCHAR}
             ,#{email, jdbcType=VARCHAR}
@@ -112,6 +116,7 @@
 			,RANK = #{rank, jdbcType=VARCHAR}
 			,CON_ORDER = #{conOrder, jdbcType=NUMERIC }
 			,FIELD = #{field, jdbcType=VARCHAR}
+			,H_PUBLIC_YN = #{hPublicYn, jdbcType=CHAR}
 			,PHONE = #{phone, jdbcType=VARCHAR}
 			,MOBILE = #{mobile, jdbcType=VARCHAR}
 			,EDU = #{edu, jdbcType=VARCHAR}

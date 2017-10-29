@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <th>URL</th>
-                    <td><a style="color:blue;" href='<c:out value="${getCompany.URL}" />'><c:out value="${getCompany.URL}" /></a></td>
+                    <td><a style="color:blue;" href='${getCompany.URL}' target="_blank"><c:out value="${getCompany.URL}" /></a></td>
                     <th>등록경로</th>
                     <td><c:out value="${getCompany.SOURCE_NM}" /></td>
                 </tr>

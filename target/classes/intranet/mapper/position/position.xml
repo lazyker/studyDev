@@ -24,7 +24,7 @@
 						END AS RULE
 						,IFNULL(R.CNT, 0) AS REC_CNT
 			            ,A.CON_NM
-			            ,FN_CONSULTENTNAME(A.S_CON_ID) AS S_CON_NM
+			            ,(SELECT CON_NM FROM I_CONSULTANT WHERE CON_ID = A.S_CON_ID) AS S_CON_NM
 			            ,CASE POS_STATUS
 			            	WHEN 'A' THEN '진행'
 			            	WHEN 'B' THEN '성공'
@@ -102,9 +102,9 @@
 					<if test='closedDataType != null and closedDataType != ""'>
 						AND A.PUBLIC_YN = 'N'
 					</if>
-					ORDER BY A.MOD_DATE
+					ORDER BY A.POS_STATUS DESC, A.MOD_DATE
 			) Z
-        ORDER BY ROWNUM DESC
+        ORDER BY Z.POS_STATUS DESC, ROWNUM DESC
         LIMIT #{startRowNum, javaType=INT}, 15
     </select>
     
@@ -197,7 +197,7 @@
             ,A.CON_ID
             ,A.S_CON_ID
             ,A.CON_NM
-            ,FN_CONSULTENTNAME(A.S_CON_ID) AS S_CON_NM
+            ,(SELECT CON_NM FROM I_CONSULTANT WHERE CON_ID = A.S_CON_ID) AS S_CON_NM
             ,POS_STATUS
             ,CASE POS_STATUS
             	WHEN 'A' THEN '진행'
@@ -207,8 +207,8 @@
             END AS POS_STATUS_NM
             ,JOB1
             ,JOB2
-            ,FN_CODE_NAME(JOB1) AS JOB1_NM
-            ,FN_CODE_NAME(JOB2) AS JOB2_NM
+            ,(SELECT CD_NM FROM I_JOB_CD WHERE CD_ID = INDUSTRY1) AS INDUSTRY1_NM
+            ,(SELECT CD_NM FROM I_JOB_CD WHERE CD_ID = INDUSTRY2) AS INDUSTRY2_NM
             ,EDU
             ,FROM_RANK
             ,TO_RANK
@@ -497,7 +497,7 @@
 			,SUBSTRING_INDEX(SUBSTRING_INDEX(ACADEMIC_1, ':', 2), ':', -1) AS USR_SCHOOL
 			,SUBSTRING_INDEX(SUBSTRING_INDEX(ACADEMIC_1, ':', 3), ':', -1) AS USR_MAJOR
 			,MOBILE
-			,FN_CONSULTENTNAME(R.CON_ID) AS CON_NM
+			,(SELECT CON_NM FROM I_CONSULTANT WHERE CON_ID = R.CON_ID) AS CON_NM
 			,R.CON_ID
 		FROM
 			I_REC_PRESENT R

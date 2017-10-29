@@ -25,7 +25,8 @@
 			<c:if test="${userInfo.ADMIN_YN eq 'Y'}">
 				<span class="d_search"><a href="javascript:;" id="delCandidate">삭제</a></span>
 			</c:if>
-            <span class="d_search"><a href="<c:url value="javascript:location.replace(document.referrer);" />">목록</a></span>
+<%--             <span class="d_search"><a href="<c:url value="javascript:location.replace(document.referrer);" />">목록</a></span> --%>
+			<span class="d_search"><a href="<c:url value="javascript:history.back(-1);" />">목록</a></span>
             <span class="p_search"><a href="javascript:;" id="print">인쇄</a></span>
         </div>
         <!--데이타테이블시작-->
@@ -47,9 +48,9 @@
                     <th class="re">성명</th>
                     <td>
                     	<c:out value="${getCandidate.USR_NM}" />
-                    	<c:if test="${!empty getCandidate.USR_ID}">
-		                    <span class="t_search"><a href="#" id="smsPop">SMS</a></span>
-	                    </c:if>
+<%--                     	<c:if test="${!empty getCandidate.USR_ID}"> --%>
+<!-- 		                    <span class="t_search"><a href="#" id="smsPop">SMS</a></span> -->
+<%-- 	                    </c:if> --%>
                     </td>
                     <th class="re">업종</th>
                     <td><c:out value="${getCandidate.INDUSTRY1_NM}" /> / <c:out value="${getCandidate.INDUSTRY2_NM}" /> </td>
@@ -341,19 +342,20 @@
 		                    		<option value="K">보류</option>
 		                    		<option value="L">미검토</option>
 		                    		<option value="M">협상결렬</option>
-		                    		<option value="N">본인포기</option>
-		                    		<option value="O">입금</option>
-		                    		<option value="P">빌링취소</option>
-		                    		<option value="Q">리플접수</option>
-		                    		<option value="R">리플</option>
-		                    		<option value="S">정산</option>
-		                    		<option value="T">call</option>
-		                    		<option value="U">이메일</option>
-		                    		<option value="V">프리뷰</option>
-		                    		<option value="W">기타</option>
+		                    		<option value="N">면접포기</option>
+		                    		<option value="O">입사포기</option>
+		                    		<option value="P">입금</option>
+		                    		<option value="Q">빌링취소</option>
+		                    		<option value="R">리플접수</option>
+		                    		<option value="S">리플</option>
+		                    		<option value="T">정산</option>
+		                    		<option value="U">call</option>
+		                    		<option value="V">이메일</option>
+		                    		<option value="W">프리뷰</option>
+		                    		<option value="X">기타</option>
 		                    	</select>
 	                    		<input name="statusDate" type="text" class="in" style="width:70px;" />
-	                    		<a href="javascript:;" name="statusDateImg"><img src="/resources/images/b_cal.png" style="vertical-align: middle;"/></a>
+	                    		<a href="javascript:;" name="statusDateImg"><img src="${pageContext.request.contextPath}/resources/images/b_cal.png" style="vertical-align: middle;"/></a>
 	                    	</div>
 	                    	<c:forEach var="chlidstate" items="${item.posProStatusList}">
 		                    	<div class="divState">
@@ -488,14 +490,14 @@
 	            str += '<select class="sel02" style="width:80px;" >';
 	            str += '<option>선택</option>';
 	            str += '<option value="A">추천</option><option value="B">1차면접</option><option value="C">2차면접</option><option value="D">3차면접</option>' +
-            			'<option value="E">실기</option><option value="F">인적성</option><option value="G">입사확정</option><option value="H">입사</option>' +
-            			'<option value="I">빌링</option><option value="J">탈락</option><option value="K">보류</option><option value="L">미검토</option>' +
-            			'<option value="M">협상결렬</option><option value="N">본인포기</option><option value="O">입금</option><option value="P">빌링취소</option>' +
-            			'<option value="Q">리플접수</option><option value="R">리플</option><option value="S">정산</option><option value="T">call</option>' +
-            			'<option value="U">이메일</option><option value="V">프리뷰</option><option value="W">기타</option>';
+		    			'<option value="E">실기</option><option value="F">인적성</option><option value="G">입사확정</option><option value="H">입사</option>' +
+		    			'<option value="I">빌링</option><option value="J">탈락</option><option value="K">보류</option><option value="L">미검토</option>' +
+		    			'<option value="M">협상결렬</option><option value="N">면접포기</option><option value="O">입사포기</option><option value="P">입금</option>' +
+		    			'<option value="Q">빌링취소</option><option value="R">리플접수</option><option value="S">리플</option><option value="T">정산</option>' +
+		    			'<option value="U">call</option><option value="V">이메일</option><option value="W">프리뷰</option><option value="X">기타</option>';
 	            str += '</select>';
 	            str += ' <input name="statusDate" type="text" class="in" style="width:70px;" /> ';
-	            str += '<a href="javascript:;" name="statusDateImg"><img src="/resources/images/b_cal.png" style=" vertical-align: middle;"/></a>';
+	            str += '<a href="javascript:;" name="statusDateImg"><img src="${pageContext.request.contextPath}/resources/images/b_cal.png" style=" vertical-align: middle;"/></a>';
 	            str +='</div>';
 	            str +='</td>';
 	            str += '<td>';
